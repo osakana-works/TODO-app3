@@ -153,7 +153,15 @@ docker run --rm \
 
 ---
 
-## 8. Vite 開発サーバーの起動
+## 8. Tailwind CSSのインストール
+
+```bash
+./vendor/bin/sail npm install -D tailwindcss@^3.4.0 postcss autoprefixer
+```
+
+---
+
+## 9. Vite 開発サーバーの起動
 
 ```bash
 ./vendor/bin/sail npm run dev
@@ -161,7 +169,7 @@ docker run --rm \
 
 ---
 
-## 9. アプリケーションへのアクセス
+## 10. アプリケーションへのアクセス
 
 - http://localhost  
 - http://localhost:8080（phpMyAdmin を追加している場合）
