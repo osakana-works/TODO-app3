@@ -15,9 +15,13 @@ Laravel の MVC 構造を理解することを目的としており、
 TODO 管理機能はユーザー単位での紐づけを行わないため、  
 ER 図には認証用の users テーブルを含めていません。
 
+---
+
 ## 作成者
 
 山口 琴音
+
+---
 
 ## 使用技術
 
@@ -25,13 +29,15 @@ ER 図には認証用の users テーブルを含めていません。
 - Laravel 10.x  
 - MySQL 8.x  
 - Docker / Laravel Sail  
-- Node.js 18.x（Vite / npm）
+- Node.js 18.x（Vite / npm）  
+- Tailwind CSS 3.x  
+
+---
 
 ## ER図
 
 ```mermaid
 erDiagram
-
     CATEGORIES {
         bigint id PK
         string name
@@ -50,9 +56,13 @@ erDiagram
     CATEGORIES ||--o{ TODOS : "has many"
 ```
 
+---
+
 ## 開発環境URL
 
 http://localhost
+
+---
 
 ## 動作環境
 
@@ -61,69 +71,112 @@ http://localhost
 - MySQL 8  
 - Node.js / npm  
 - Vite  
+- Tailwind CSS  
 
-## 環境構築手順
+---
 
-1. **リポジトリをクローン**
+# 環境構築手順（Clone した場合）
 
-    ```bash
-    git clone https://github.com/osakana-works/TODO-app3.git
-    cd TODO-app3
-    ```
+## 1. リポジトリをクローン
 
-2. **.envファイルの準備**
+```bash
+git clone https://github.com/osakana-works/TODO-app3.git
+cd TODO-app3
+```
 
-    `.env.example` をコピーして `.env` を作成し、  
-    DB 接続情報を環境に合わせて設定。
+---
 
-    ```bash
-    cp .env.example .env
-    ```
+## 2. .envファイルの準備
 
-3. **Composer依存パッケージのインストール**
+```bash
+cp .env.example .env
+```
 
-    ```bash
-    ./vendor/bin/sail composer install
-    ```
+以下の DB 設定になっていることを確認します。
 
-4. **Laravel Sailの起動**
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
 
-    ```bash
-    ./vendor/bin/sail up -d
-    ```
+---
 
-5. **アプリケーションキーの生成**
+## 3. Composer依存パッケージのインストール（Docker 経由）
 
-    ```bash
-    ./vendor/bin/sail artisan key:generate
-    ```
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install
+```
 
-6. **データベースのマイグレーションと初期データ投入**
+---
 
-    ```bash
-    ./vendor/bin/sail artisan migrate --seed
-    ```
+## 4. Laravel Sail の起動
 
-7. **フロントエンドのビルド**
+```bash
+./vendor/bin/sail up -d
+```
 
-    ```bash
-    npm install
-    npm run dev
-    ```
+---
 
-8. **アプリケーションへのアクセス**
+## 5. アプリケーションキーの生成
 
-    http://localhost  
-    または  
-    http://localhost:8080
+```bash
+./vendor/bin/sail artisan key:generate
+```
 
-## テスト実行
+---
+
+## 6. データベースのマイグレーションと初期データ投入
+
+```bash
+./vendor/bin/sail artisan migrate --seed
+```
+
+---
+
+# Tailwind CSS
+---
+
+## 7. フロントエンドのセットアップ
+
+```bash
+./vendor/bin/sail npm install
+```
+
+---
+
+## 8. Vite 開発サーバーの起動
+
+```bash
+./vendor/bin/sail npm run dev
+```
+
+---
+
+## 9. アプリケーションへのアクセス
+
+- http://localhost  
+- http://localhost:8080（phpMyAdmin を追加している場合）
+
+---
+
+# テスト実行
 
 ```bash
 ./vendor/bin/sail artisan test
 ```
 
-## 機能一覧
+---
+
+# 機能一覧
 
 - TODO の新規作成  
 - TODO の一覧表示  
@@ -131,4 +184,3 @@ http://localhost
 - TODO の削除  
 - カテゴリー選択  
 - キーワード検索  
-
