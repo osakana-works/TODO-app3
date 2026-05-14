@@ -1,4 +1,3 @@
-```markdown
 # COACHTECH TODOアプリ
 
 このアプリケーションは、COACHTECH の学習課題として作成した  
