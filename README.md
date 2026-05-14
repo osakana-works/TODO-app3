@@ -31,18 +31,23 @@ ER 図には認証用の users テーブルを含めていません。
 
 ```mermaid
 erDiagram
-    categories {
-        id int
-        name string
+
+    CATEGORIES {
+        bigint id PK
+        string name
+        timestamp created_at
+        timestamp updated_at
     }
 
-    todos {
-        id int
-        content string
-        category_id int
+    TODOS {
+        bigint id PK
+        bigint category_id FK
+        string content
+        timestamp created_at
+        timestamp updated_at
     }
 
-    categories ||--o{ todos : "has many"
+    CATEGORIES ||--o{ TODOS : "has many"
 ```
 
 ## 開発環境URL
